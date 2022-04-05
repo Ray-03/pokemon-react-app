@@ -1,5 +1,6 @@
-import { FlexProps, Flex, IconButton, Image } from '@chakra-ui/react'
+import { FlexProps, Flex, IconButton } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
+import Logo from '../Logo'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
@@ -24,14 +25,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-      <Image
-        ml={3}
-        height="40px"
-        objectFit="cover"
-        src="https://www.nicepng.com/png/full/1-14636_pokemon-logo-text-png-7-pokemon-gotta-catch.png"
-        alt="Pokemon"
-        fallbackSrc="https://via.placeholder.com/100"
-      />
+      <Logo ml={3} />
     </Flex>
   )
 }
