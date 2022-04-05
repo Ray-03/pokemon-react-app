@@ -1,6 +1,7 @@
 import { BoxProps, Box, Flex, CloseButton, Image } from '@chakra-ui/react'
 
 import { LinkItems } from '../../data/LinkItems'
+import Logo from '../Logo'
 import NavItem from './NavItem'
 
 interface SidebarProps extends BoxProps {
@@ -19,13 +20,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Image
-          height="40px"
-          objectFit="cover"
-          src="https://www.nicepng.com/png/full/1-14636_pokemon-logo-text-png-7-pokemon-gotta-catch.png"
-          alt="Pokemon"
-          fallbackSrc="https://via.placeholder.com/100"
-        />
+        <Logo />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
