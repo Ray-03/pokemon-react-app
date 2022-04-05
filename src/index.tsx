@@ -1,6 +1,7 @@
 import { ChakraProvider, theme } from '@chakra-ui/react'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
 import { App } from './App'
 import reportWebVitals from './reportWebVitals'
@@ -9,9 +10,11 @@ import * as serviceWorker from './serviceWorker'
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <QueryClientProvider client={new QueryClient()}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
