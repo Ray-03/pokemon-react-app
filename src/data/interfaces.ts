@@ -64,11 +64,19 @@ interface PokemonCatchResultModalProps {
   catchPokemonOnClose: () => void
   pokemonIsCatched: boolean | null
   element: PokemonNameUrlProps
+  data: PokemonDetailProps | null
 }
 
 interface NavItemProps extends FlexProps {
   url: string
   children: ReactNode
+}
+
+interface SavedPokemonProps {
+  id?: string
+  nickname: string
+  element: PokemonNameUrlProps
+  detail: PokemonDetailProps
 }
 
 export type {
@@ -80,4 +88,5 @@ export type {
   NavItemProps,
   PokeTypeNameUrlProps,
   PokemonCatchResultModalProps,
+  SavedPokemonProps,
 }
