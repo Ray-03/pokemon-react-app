@@ -44,6 +44,9 @@ const PokemonList = () => {
 
     return data
   }
+
+  useQuery<PokemonListProps>(['getPokemonList', requestData], fetchPokemon)
+
   return (
     <>
       <Heading>Pokemon List</Heading>
