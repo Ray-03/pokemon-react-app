@@ -14,19 +14,27 @@ import {
   List,
   ListItem,
   HStack,
+  Button,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { PokemonDetailProps, PokemonNameUrlProps } from '../data/interfaces'
+import PokemonCatchResultsModal from './PokemonCatchResultsModal'
 import PokemonTypeBadge from './PokemonTypeBadge'
 
 const PokemonCardSum = (element: PokemonNameUrlProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+    isOpen: catchPokemonIsOpen,
+    onOpen: catchPokemonOnOpen,
+    onClose: catchPokemonOnClose,
+  } = useDisclosure()
   const id = element.url.split('/')[6]
 
   const [pokemonData, setPokemonData] = useState<PokemonDetailProps | null>(
     null
   )
+  const [pokemonIsCatched, setPokemonIsCatched] = useState<boolean | null>(null)
 
   const fetchPokemonDetail = async () => {
     const response = await fetch(element.url)
@@ -65,16 +73,31 @@ const PokemonCardSum = (element: PokemonNameUrlProps) => {
             <ModalBody>
               {pokemonData && (
                 <>
-                  <HStack>
+                  <HStack justify="space-between">
                     <Image
                       src={
                         pokemonData.sprites.front_default ??
                         'https://via.placeholder.com/96'
                       }
                     />
-                    {pokemonData.types.map((el) => (
-                      <PokemonTypeBadge {...el.type} />
-                    ))}
+                    <Box>
+                      {pokemonData.types.map((el) => (
+                        <Box>
+                          <PokemonTypeBadge {...el.type} />
+                        </Box>
+                      ))}
+                    </Box>
+                    <Button
+                      aria-label={'catch-pokemon'}
+                      onClick={() => {
+                        Math.random() > 0.5
+                          ? setPokemonIsCatched(true)
+                          : setPokemonIsCatched(false)
+                        catchPokemonOnOpen()
+                      }}
+                    >
+                      Catch!
+                    </Button>
                   </HStack>
                   <Heading>Pokemon Moves</Heading>
                   <List>
@@ -103,6 +126,12 @@ const PokemonCardSum = (element: PokemonNameUrlProps) => {
           </ModalContent>
         </ModalOverlay>
       </Modal>
+      <PokemonCatchResultsModal
+        catchPokemonIsOpen={catchPokemonIsOpen}
+        catchPokemonOnClose={catchPokemonOnClose}
+        pokemonIsCatched={pokemonIsCatched}
+        element={element}
+      />
     </>
   )
 }
