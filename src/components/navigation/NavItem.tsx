@@ -1,11 +1,7 @@
-import { FlexProps, Flex } from '@chakra-ui/react'
-import { ReactText } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Flex } from '@chakra-ui/react'
 
-interface NavItemProps extends FlexProps {
-  url: string
-  children: ReactText
-}
+import { NavLink } from 'react-router-dom'
+import { NavItemProps } from '../../data/interfaces'
 
 const NavItem = ({ url, children, ...rest }: NavItemProps) => {
   return (
