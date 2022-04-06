@@ -1,20 +1,38 @@
-import { Box, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react'
 import React from 'react'
 import { PokemonNameUrlProps } from '../data/interfaces'
 
 const PokemonCardSum = (element: PokemonNameUrlProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const id = element.url.split('/')[6]
   return (
-    <Box
-      key={element.url.split('/')[6]}
-      p={4}
-      borderWidth={1}
-      mt={4}
-      borderRadius={4}
-      backgroundColor={'white'}
-    >
-      <Text>{`Poke ID: ${element.url.split('/')[6]}`}</Text>
-      <Text textTransform="capitalize">{element.name}</Text>
-    </Box>
+      <Box
+        key={id}
+        padding={4}
+        borderWidth={1}
+        mt={4}
+        borderRadius={4}
+        backgroundColor={'white'}
+        onClick={onOpen}
+        _hover={{
+          bg: 'cyan.400',
+          color: 'white',
+        }}
+      >
+        <Text>{`Poke ID: ${id}`}</Text>
+        <Text textTransform="capitalize">{element.name}</Text>
+      </Box>
   )
 }
 
