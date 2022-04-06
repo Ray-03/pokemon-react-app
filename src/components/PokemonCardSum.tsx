@@ -17,6 +17,7 @@ const PokemonCardSum = (element: PokemonNameUrlProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const id = element.url.split('/')[6]
   return (
+    <>
       <Box
         key={id}
         padding={4}
@@ -33,6 +34,17 @@ const PokemonCardSum = (element: PokemonNameUrlProps) => {
         <Text>{`Poke ID: ${id}`}</Text>
         <Text textTransform="capitalize">{element.name}</Text>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
+        <ModalOverlay>
+          <ModalContent maxW="90%">
+            <ModalHeader textTransform="capitalize">{element.name}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody />
+            <ModalFooter />
+          </ModalContent>
+        </ModalOverlay>
+      </Modal>
+    </>
   )
 }
 
