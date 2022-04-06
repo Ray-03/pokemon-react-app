@@ -22,7 +22,28 @@ interface PokemonNameUrlProps {
 }
 
 const PokemonList = () => {
+  const [hasMoreData, setHasMoreData] = useState<boolean>(true)
   const [pokemonData, setPokemonData] = useState<Array<PokemonNameUrlProps>>([])
+  const [requestData, setRequestData] = useState<RequestDataType>({
+    limit: 100,
+    page: 0,
+  })
+
+  const fetchPokemon = async () => {
+    const response = await fetch(
+      `${mainApiUrl}pokemon?offset=${
+        requestData.page * requestData.limit
+      }&limit=${requestData.limit}`
+    )
+    const data = await response.json()
+
+    setPokemonData(Array.from(new Set([...pokemonData, ...data.results])))
+    if (data.results.length < requestData.limit) {
+      setHasMoreData(false)
+    }
+
+    return data
+  }
   return (
     <>
       <Heading>Pokemon List</Heading>
