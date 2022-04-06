@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 import mainApiUrl from '../../data/api'
 import {
   PokemonNameUrlProps,
-  RequestDataType,
+  PokeListRequestDataType,
   PokemonListProps,
 } from '../../data/interfaces'
 import PokemonCardSum from '../PokemonCardSum'
@@ -13,7 +13,7 @@ import PokemonCardSum from '../PokemonCardSum'
 const PokemonList = () => {
   const [hasMoreData, setHasMoreData] = useState<boolean>(true)
   const [pokemonData, setPokemonData] = useState<Array<PokemonNameUrlProps>>([])
-  const [requestData, setRequestData] = useState<RequestDataType>({
+  const [requestData, setRequestData] = useState<PokeListRequestDataType>({
     limit: 100,
     page: 0,
   })

@@ -1,7 +1,7 @@
 import { FlexProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
-interface RequestDataType {
+interface PokeListRequestDataType {
   page: number
   limit: number
 }
@@ -11,6 +11,42 @@ interface PokemonListProps {
   next: string
   previous: string
   results: Array<PokemonNameUrlProps>
+}
+
+interface PokemonDetailProps {
+  sprites: PokemonSpritesProps
+  moves: Array<PokemonMoveProps>
+  types: Array<PokeType>
+}
+
+interface PokeType {
+  type: PokeTypeNameUrlProps
+  slot: number
+}
+
+interface PokeTypeNameUrlProps {
+  name: string
+  url: string
+}
+
+interface PokemonMoveProps {
+  move: PokemonMoveNameUrlProps
+}
+
+interface PokemonMoveNameUrlProps {
+  name: string
+  url: string
+}
+
+interface PokemonSpritesProps {
+  back_default: string | null
+  back_female: string | null
+  back_shiny: string | null
+  back_shiny_female: string | null
+  front_default: string | null
+  front_default_female: string | null
+  front_female: string | null
+  front_shiny_female: string | null
 }
 
 interface PokemonNameUrlProps {
@@ -29,9 +65,11 @@ interface NavItemProps extends FlexProps {
 }
 
 export type {
-  RequestDataType,
+  PokeListRequestDataType,
   PokemonListProps,
   PokemonNameUrlProps,
+  PokemonDetailProps,
   LinkItemProps,
   NavItemProps,
+  PokeTypeNameUrlProps,
 }
