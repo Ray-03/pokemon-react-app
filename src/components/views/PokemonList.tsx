@@ -1,4 +1,4 @@
-import { Box, Center, Heading, Spinner, Text } from '@chakra-ui/react'
+import { Center, Heading, Spinner, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useQuery } from 'react-query'
@@ -56,6 +56,9 @@ const PokemonList = () => {
           </Center>
         }
       >
+        {pokemonData.map((element) => (
+          <PokemonCardSum {...element} />
+        ))}
       </InfiniteScroll>
     </>
   )
