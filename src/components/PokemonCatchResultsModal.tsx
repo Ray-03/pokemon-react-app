@@ -10,10 +10,14 @@ import {
   Button,
   Text,
   Box,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  CloseButton,
 } from '@chakra-ui/react'
 import { Formik } from 'formik'
 import { InputControl, SubmitButton } from 'formik-chakra-ui'
-import React from 'react'
 import {
   PokemonCatchResultModalProps,
   PokemonDetailProps,
@@ -26,19 +30,33 @@ const initialValues = {
 }
 
 const onSubmit = async (data: any) => {
-  await new PokemonService().addPokemon({
-    nickname: data.values.nickname as string,
-    element: data.element as PokemonNameUrlProps,
-    detail: data.detail as PokemonDetailProps,
-  })
+  try {
+    const pokemonService = new PokemonService()
+    await pokemonService.addPokemon({
+      nickname: data.values.nickname as string,
+      element: data.element as PokemonNameUrlProps,
+      detail: data.detail as PokemonDetailProps,
+    })
+  } catch (error) {
+    return (
+      <Alert status="error">
+        <AlertIcon />
+        <AlertTitle mr={2}>Error!</AlertTitle>
+        <AlertDescription>{String(error)}</AlertDescription>
+        <CloseButton position="absolute" right="8px" top="8px" />
+      </Alert>
+    )
+  }
 }
 
 const CatchedPokemonForm = ({
   detail,
   element,
+  onClose,
 }: {
   detail: PokemonDetailProps | null
   element: PokemonNameUrlProps
+  onClose: () => void
 }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
@@ -47,7 +65,12 @@ const CatchedPokemonForm = ({
           <InputControl mb={3} name={'nickname'} label={'Nickname'} />
           <SubmitButton
             onClick={() => {
-              onSubmit({ detail: detail, element: element, values: values })
+              onSubmit({
+                detail: detail,
+                element: element,
+                values: values,
+              })
+              onClose()
             }}
           >
             Submit
@@ -80,7 +103,11 @@ const PokemonCatchResultsModal = (props: PokemonCatchResultModalProps) => {
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <CatchedPokemonForm detail={data} element={element} />
+              <CatchedPokemonForm
+                detail={data}
+                element={element}
+                onClose={catchPokemonOnClose}
+              />
             </ModalBody>
             <ModalFooter />
           </ModalContent>

@@ -3,9 +3,10 @@ import {
   collection,
   doc,
   getDocs,
-  getDoc,
   addDoc,
   deleteDoc,
+  query,
+  where,
 } from 'firebase/firestore'
 
 import { SavedPokemonProps } from '../data/interfaces'
@@ -18,7 +19,11 @@ class PokemonService {
 
   getAllPokemon = () => getDocs(collection(db, 'pokemon'))
 
-  getPokemonDetail = (id: string) => getDoc(doc(db, 'pokemon', id))
+  getPokemonDetail = async (nickname: string) => {
+    return await getDocs(
+      query(collection(db, 'pokemon'), where('nickname', '==', nickname))
+    )
+  }
 }
 
 export default PokemonService

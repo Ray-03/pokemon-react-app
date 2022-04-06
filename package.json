@@ -21,6 +21,7 @@
     "framer-motion": "3.10.6",
     "global": "^4.4.0",
     "motion": "^10.7.0",
+    "netlify-cli": "^9.16.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
