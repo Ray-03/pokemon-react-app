@@ -50,6 +50,24 @@ const PokemonList = () => {
   return (
     <>
       <Heading>Pokemon List</Heading>
+      <InfiniteScroll
+        dataLength={pokemonData.length}
+        next={() =>
+          setRequestData({ ...requestData, page: requestData.page + 1 })
+        }
+        hasMore={hasMoreData}
+        loader={
+          <Center>
+            <Spinner />
+          </Center>
+        }
+        endMessage={
+          <Center>
+            <Text>Yay! You have seen all pokemon</Text>
+          </Center>
+        }
+      >
+      </InfiniteScroll>
     </>
   )
 }
