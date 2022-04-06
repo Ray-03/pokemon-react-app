@@ -1,3 +1,6 @@
+import { FlexProps } from '@chakra-ui/react'
+import { ReactNode } from 'react'
+
 interface RequestDataType {
   page: number
   limit: number
@@ -20,9 +23,15 @@ interface LinkItemProps {
   url: string
 }
 
+interface NavItemProps extends FlexProps {
+  url: string
+  children: ReactNode
+}
+
 export type {
   RequestDataType,
   PokemonListProps,
   PokemonNameUrlProps,
   LinkItemProps,
+  NavItemProps,
 }
