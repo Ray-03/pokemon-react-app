@@ -7,6 +7,8 @@ import {
   Text,
   VStack,
   Image,
+  Button,
+  HStack,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { SavedPokemonProps } from '../../data/interfaces'
@@ -30,43 +32,62 @@ const MyPokemonList = () => {
   }
   useEffect(() => {
     fetchMyPokemon()
-  })
+  }, [])
 
   return (
     <>
       <Heading>My Pokemon List</Heading>
-      <List>
-        {pokemonData.map((el) => (
-          <ListItem key={el.id} onClick={() => {}}>
-            <Box
-              padding={4}
-              borderWidth={1}
-              mt={4}
-              borderRadius={4}
-              backgroundColor={'white'}
-              _hover={{
-                bg: 'cyan.400',
-                color: 'white',
-              }}
-            >
-              <Flex>
-                <Image
-                  src={
-                    el.detail.sprites.front_default ??
-                    'https://via.placeholder.com/96'
-                  }
-                  fallbackSrc="https://via.placeholder.com/96"
-                />
-                <VStack align={'start'} justify={'center'}>
-                  <Text>Poke ID: {el.element.url.split('/')[6]}</Text>
-                  <Text>Name: {el.element.name}</Text>
-                  <Text>Nickname: {el.nickname}</Text>
-                </VStack>
-              </Flex>
-            </Box>
-          </ListItem>
-        ))}
-      </List>
+      {pokemonData.length > 0 ? (
+        <List>
+          {pokemonData.map((el) => (
+            <ListItem key={el.id}>
+              <Box
+                padding={4}
+                borderWidth={1}
+                mt={4}
+                borderRadius={4}
+                backgroundColor={'white'}
+                _hover={{
+                  bg: 'cyan.400',
+                  color: 'white',
+                }}
+              >
+                <Flex justify="space-between" align="center">
+                  <HStack>
+                    <Image
+                      src={
+                        el.detail.sprites.front_default ??
+                        'https://via.placeholder.com/96'
+                      }
+                      fallbackSrc="https://via.placeholder.com/96"
+                    />
+                    <VStack align={'start'} justify={'center'}>
+                      <Text>Poke ID: {el.element.url.split('/')[6]}</Text>
+                      <Text>Name: {el.element.name}</Text>
+                      <Text>Nickname: {el.nickname}</Text>
+                    </VStack>
+                  </HStack>
+                  <Button
+                    color="black"
+                    _hover={{ color: 'red' }}
+                    onClick={() => {
+                      setPokemonData(
+                        pokemonData.filter(function (value) {
+                          return value.id !== el.id
+                        })
+                      )
+                    }}
+                  >
+                    Release
+                  </Button>
+                </Flex>
+              </Box>
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <Text>Uh oh... You don't own any pokemon</Text>
+      )}
     </>
   )
 }
