@@ -1,7 +1,4 @@
-interface LinkItemProps {
-  name: string
-  url: string
-}
+import { LinkItemProps } from './interfaces'
 
 const LinkItems: Array<LinkItemProps> = [{ name: 'Home', url: '/' }]
 

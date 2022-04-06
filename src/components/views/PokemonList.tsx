@@ -3,23 +3,12 @@ import React, { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useQuery } from 'react-query'
 import mainApiUrl from '../../data/api'
-
-interface RequestDataType {
-  page: number
-  limit: number
-}
-
-interface PokemonListProps {
-  count: number
-  next: string
-  previous: string
-  results: Array<PokemonNameUrlProps>
-}
-
-interface PokemonNameUrlProps {
-  name: string
-  url: string
-}
+import {
+  PokemonNameUrlProps,
+  RequestDataType,
+  PokemonListProps,
+} from '../../data/interfaces'
+import PokemonCardSum from '../PokemonCardSum'
 
 const PokemonList = () => {
   const [hasMoreData, setHasMoreData] = useState<boolean>(true)
