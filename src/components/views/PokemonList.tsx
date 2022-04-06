@@ -22,7 +22,12 @@ interface PokemonNameUrlProps {
 }
 
 const PokemonList = () => {
-  return <div>PokemonList</div>
+  const [pokemonData, setPokemonData] = useState<Array<PokemonNameUrlProps>>([])
+  return (
+    <>
+      <Heading>Pokemon List</Heading>
+    </>
+  )
 }
 
 export default PokemonList
