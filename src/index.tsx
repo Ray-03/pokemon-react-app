@@ -10,7 +10,17 @@ import * as serviceWorker from './serviceWorker'
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider
+        client={
+          new QueryClient({
+            defaultOptions: {
+              queries: {
+                refetchOnWindowFocus: false,
+              },
+            },
+          })
+        }
+      >
         <BrowserRouter>
           <App />
         </BrowserRouter>
