@@ -131,6 +131,7 @@ const PokemonCardSum = (element: PokemonNameUrlProps) => {
         catchPokemonOnClose={catchPokemonOnClose}
         pokemonIsCatched={pokemonIsCatched}
         element={element}
+        data={pokemonData}
       />
     </>
   )

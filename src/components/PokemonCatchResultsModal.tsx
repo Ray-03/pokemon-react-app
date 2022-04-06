@@ -14,32 +14,58 @@ import {
 import { Formik } from 'formik'
 import { InputControl, SubmitButton } from 'formik-chakra-ui'
 import React from 'react'
-import { PokemonCatchResultModalProps } from '../data/interfaces'
+import {
+  PokemonCatchResultModalProps,
+  PokemonDetailProps,
+  PokemonNameUrlProps,
+} from '../data/interfaces'
+import PokemonService from '../service/pokemon.service'
 
 const initialValues = {
   nickname: '',
 }
 
-const onSubmit = (values: any) => {
-  // sleep(300).then(() => {
-  //   window.alert(JSON.stringify(values, null, 2))
-  // })
+const onSubmit = async (data: any) => {
+  await new PokemonService().addPokemon({
+    nickname: data.values.nickname as string,
+    element: data.element as PokemonNameUrlProps,
+    detail: data.detail as PokemonDetailProps,
+  })
 }
 
-const CatchedPokemonForm = () => (
-  <Formik initialValues={initialValues} onSubmit={onSubmit}>
-    {({ handleSubmit, handleChange, values }) => (
-      <Box>
-        <InputControl mb={3} name={'nickname'} label={'Nickname'} />
-        <SubmitButton>Submit</SubmitButton>
-      </Box>
-    )}
-  </Formik>
-)
+const CatchedPokemonForm = ({
+  detail,
+  element,
+}: {
+  detail: PokemonDetailProps | null
+  element: PokemonNameUrlProps
+}) => {
+  return (
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      {({ handleSubmit, handleChange, values }) => (
+        <Box onSubmit={handleSubmit as any}>
+          <InputControl mb={3} name={'nickname'} label={'Nickname'} />
+          <SubmitButton
+            onClick={() => {
+              onSubmit({ detail: detail, element: element, values: values })
+            }}
+          >
+            Submit
+          </SubmitButton>
+        </Box>
+      )}
+    </Formik>
+  )
+}
 
 const PokemonCatchResultsModal = (props: PokemonCatchResultModalProps) => {
-  const { catchPokemonIsOpen, catchPokemonOnClose, pokemonIsCatched, element } =
-    props
+  const {
+    catchPokemonIsOpen,
+    catchPokemonOnClose,
+    pokemonIsCatched,
+    element,
+    data,
+  } = props
   return (
     <Modal
       isOpen={catchPokemonIsOpen}
@@ -54,7 +80,7 @@ const PokemonCatchResultsModal = (props: PokemonCatchResultModalProps) => {
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <CatchedPokemonForm />
+              <CatchedPokemonForm detail={data} element={element} />
             </ModalBody>
             <ModalFooter />
           </ModalContent>
