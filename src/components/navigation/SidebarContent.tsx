@@ -1,5 +1,4 @@
-import { BoxProps, Box, Flex, CloseButton, Image } from '@chakra-ui/react'
-
+import { BoxProps, Box, Flex, CloseButton } from '@chakra-ui/react'
 import { LinkItems } from '../../data/LinkItems'
 import Logo from '../Logo'
 import NavItem from './NavItem'
